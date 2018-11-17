@@ -1091,7 +1091,8 @@ pre .javascript .function {
 }
 .header {
   background: transparent;
-  background: url("../images/background.jpg");
+  background: url("../images/background-01.jpg") no-repeat;
+  background-size: 100%;
 }
 .header-inner {
   position: relative;
@@ -1114,7 +1115,6 @@ pre .javascript .function {
   display: inline-block;
   padding: 0 40px;
   color: #fff;
-  background: #222;
   border-bottom: none;
 }
 .brand:hover {
@@ -1130,7 +1130,7 @@ pre .javascript .function {
   display: inline-block;
   vertical-align: top;
   line-height: 36px;
-  font-size: 20px;
+  font-size: 36px;
   font-weight: normal;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
 }
@@ -1189,10 +1189,14 @@ pre .javascript .function {
   margin-top: 20px;
   padding-left: 0;
   text-align: center;
+  width: 500px;
+  margin: 0 auto;
+  padding: 10px;
+  background: rgba(255,255,255,0.5);
 }
 .menu .menu-item {
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 20px;
   list-style: none;
 }
 @media screen and (max-width: 767px) {
@@ -1202,8 +1206,8 @@ pre .javascript .function {
 }
 .menu .menu-item a {
   display: block;
-  font-size: 13px;
-  line-height: inherit;
+  font-size: 16px;
+  line-height: 20px;
   border-bottom: 1px solid transparent;
   transition-property: border-color;
   transition-duration: 0.2s;
@@ -1214,7 +1218,11 @@ pre .javascript .function {
   border-bottom-color: #222;
 }
 .menu .menu-item .fa {
-  margin-right: 5px;
+  margin-right: -6px !important;
+  font-size: 20px;
+}
+.menu .menu-item .fa-home {
+  font-size: 22px;
 }
 .use-motion .menu-item {
   opacity: 0;
@@ -1832,7 +1840,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffd1ff;
+  background: #4d13ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2614,7 +2622,6 @@ embed {
 }
 .custom-logo .site-title {
   margin: 10px auto 0;
-  font-size: 24px;
   color: #222;
 }
 .custom-logo .site-title a {
