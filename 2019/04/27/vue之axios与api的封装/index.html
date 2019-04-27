@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue,axios,封装,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="axios的封装和api接口的统一管理，其主要目的就是在帮助我们简化代码和利于后期的更新维护。axios 是基于 promise 的 http 库，可运行在浏览器端和 node.js 中。axios 有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。">
+<meta name="keywords" content="vue,axios,封装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue之axios与api的封装">
+<meta property="og:url" content="http://yoursite.com/2019/04/27/vue之axios与api的封装/index.html">
+<meta property="og:site_name" content="知 乐">
+<meta property="og:description" content="axios的封装和api接口的统一管理，其主要目的就是在帮助我们简化代码和利于后期的更新维护。axios 是基于 promise 的 http 库，可运行在浏览器端和 node.js 中。axios 有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-27T15:23:31.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue之axios与api的封装">
+<meta name="twitter:description" content="axios的封装和api接口的统一管理，其主要目的就是在帮助我们简化代码和利于后期的更新维护。axios 是基于 promise 的 http 库，可运行在浏览器端和 node.js 中。axios 有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/27/vue之axios与api的封装/">
+
+
+
+
+
+  <title>vue之axios与api的封装 | 知 乐</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">知 乐</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-project">
+          <a href="/project/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-html5"></i> <br>
+            
+            项目展示
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/vue之axios与api的封装/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="itzhile">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知 乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue之axios与api的封装</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T23:17:48+08:00">
+                2019-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  axios的封装和api接口的统一管理，其主要目的就是在帮助我们简化代码和利于后期的更新维护。<br>axios 是基于 promise 的 http 库，可运行在浏览器端和 node.js 中。<br>axios 有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="vue-axios与api的封装"><a href="#vue-axios与api的封装" class="headerlink" title="vue - axios与api的封装"></a>vue - axios与api的封装</h1><p><code>axios</code> 的封装和 <code>api</code> 接口的统一管理，其主要目的就是在帮助我们简化代码和利于后期的更新维护。</p>
+<p>在项目中的 <code>src</code> 目录下新建一个 <code>config</code> 文件夹，在里面创建 <code>http.js</code> 和 <code>api.js</code> 文件。</p>
+<ul>
+<li><code>http.js</code>：文件用来封装 axios 请求 </li>
+<li><code>api.js</code>：用来统一管理请求接口</li>
+</ul>
+<h2 id="axios-的封装"><a href="#axios-的封装" class="headerlink" title="axios 的封装"></a>axios 的封装</h2><p>axios 是基于 promise 的 http 库，可运行在浏览器端和 node.js 中。</p>
+<p>axios 有很多优秀的特性，例如拦截请求和响应、取消请求、转换json、客户端防御XSRF等。</p>
+<h3 id="安装-axios"><a href="#安装-axios" class="headerlink" title="安装 axios"></a>安装 axios</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install axios -S</span><br></pre></td></tr></table></figure>
+<h3 id="引入封装-axios"><a href="#引入封装-axios" class="headerlink" title="引入封装 axios"></a>引入封装 axios</h3><p>在 <code>http.js</code> 中引入封装 axios 请求<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 axios</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>; </span><br><span class="line"><span class="comment">// 引入 vuex</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'@/store'</span>;</span><br><span class="line"><span class="comment">// vant 的 toast 提示框组件(根据自己的ui组件更改)。</span></span><br><span class="line"><span class="keyword">import</span> &#123; Toast &#125; <span class="keyword">from</span> <span class="string">'vant'</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="设置环境切换-baseURL"><a href="#设置环境切换-baseURL" class="headerlink" title="设置环境切换 baseURL"></a>设置环境切换 baseURL</h3><p>项目环境可能有开发环境、测试环境和生产环境，通过 <code>node</code> 的环境变量来匹配默认的 <code>url接口前缀</code> 。</p>
+<p><code>axios.defaults.baseURL</code>：设置 <code>axios</code> 的默认请求地址。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 环境的切换</span></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV == <span class="string">'development'</span>) &#123; </span><br><span class="line">    axios.defaults.baseURL = <span class="string">'https://www.development.com'</span>;&#125; </span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (process.env.NODE_ENV == <span class="string">'test'</span>) &#123; </span><br><span class="line">    axios.defaults.baseURL = <span class="string">'https://www.test.com'</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (process.env.NODE_ENV == <span class="string">'production'</span>) &#123; </span><br><span class="line">    axios.defaults.baseURL = <span class="string">'https://www.production.com'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="设置请求超时"><a href="#设置请求超时" class="headerlink" title="设置请求超时"></a>设置请求超时</h3><blockquote>
+<p>示例：如果请求超时如果超过了10s，就会告知用户当前请求超时，请刷新等。</p>
+</blockquote>
+<p><code>axios.defaults.timeout</code>：设置默认的请求超时时间。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置默认的请求超时时间</span></span><br><span class="line">axios.defaults.timeout = <span class="number">10000</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="设置请求头"><a href="#设置请求头" class="headerlink" title="设置请求头"></a>设置请求头</h3><blockquote>
+<p>除了配置请求头以外还可以在请求头里添加一些自定义属性</p>
+</blockquote>
+<p><code>axios.defaults.headers</code>：设置默认请求头。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 配置请求头</span></span><br><span class="line">axios.defaults.headers.post[<span class="string">'Content-Type'</span>] = <span class="string">'application/json;charset=UTF-8'</span>;</span><br><span class="line"><span class="comment">// 配置请求头 -&gt; 添加自定义属性，根据项目而定</span></span><br><span class="line">axios.defaults.headers.appId = <span class="number">10000</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="设置请求拦截"><a href="#设置请求拦截" class="headerlink" title="设置请求拦截"></a>设置请求拦截</h3><blockquote>
+<p>在发送请求前可以进行一个请求的拦截，为什么要拦截呢，我们拦截请求是用来做什么的呢？</p>
+<p>比如，有些请求是需要用户登录之后才能访问的，或者post请求的时候，我们需要序列化我们提交的数据。这时候，我们可以在请求被发送之前进行一个拦截，从而进行我们想要的操作。</p>
+</blockquote>
+<p><code>axios.interceptors.request.use()</code>：请求拦截函数，接收两个回调，第一个为 <code>config</code> 请求配置，第二个为 <code>error</code> 错误信息。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求拦截器</span></span><br><span class="line">axios.interceptors.request.use(</span><br><span class="line">    config =&gt; &#123;</span><br><span class="line">        <span class="comment">// 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，</span></span><br><span class="line">        <span class="keyword">const</span> token = store.state.Token;</span><br><span class="line">        token &amp;&amp; (config.headers.Authorization = token);</span><br><span class="line">        <span class="keyword">return</span> config;</span><br><span class="line">    &#125;, </span><br><span class="line">    error =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.error(error);</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>这里说一下token，一般是在登录完成之后，将用户的token通过localStorage或者cookie存在本地，然后用户每次在进入页面的时候（即在main.js中），会首先从本地存储中读取token，如果token存在说明用户已经登陆过，则更新vuex中的token状态。</p>
+<p>然后，在每次请求接口的时候，都会在请求的header中携带token，后台人员就可以根据你携带的token来判断你的登录是否过期，如果没有携带，则说明没有登录过。</p>
+<h3 id="设置响应的拦截"><a href="#设置响应的拦截" class="headerlink" title="设置响应的拦截"></a>设置响应的拦截</h3><blockquote>
+<p>响应拦截器很好理解，就是服务器返回给我们的数据，我们在拿到之前可以对他进行一些处理。</p>
+<p>例如：如果后台返回的状态码是200，则正常返回数据，否则就根据错误的状态码类型进行一些我们需要的错误处理。</p>
+</blockquote>
+<p><code>axios.interceptors.response.use()</code>：响应拦截函数，接收两个回调，第一个为 <code>response</code> 请求返回内容，第二个为 <code>error</code> 错误信息。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 响应拦截器</span></span><br><span class="line">axios.interceptors.response.use(</span><br><span class="line">    response =&gt; &#123;</span><br><span class="line">        <span class="comment">// 如果返回的状态码为200，说明请求成功，可以正常拿到数据，否则抛出错误</span></span><br><span class="line">        <span class="keyword">if</span> (response.status === <span class="number">200</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(response);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, </span><br><span class="line">    error =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (error.response.status) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (error.response.status) &#123;</span><br><span class="line">                <span class="comment">// 跟后台开发人员协商好统一的错误状态码，对相应状态码做相对的错误处理</span></span><br><span class="line">                <span class="keyword">case</span> <span class="number">401</span>: ...省略代码... break;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">403</span>: ...省略代码... break;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">404</span>: ...省略代码... break;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">500</span>: ...省略代码... break;</span><br><span class="line">                <span class="comment">// 其他错误，直接抛出错误提示</span></span><br><span class="line">                <span class="keyword">default</span>: Toast(&#123; </span><br><span class="line">                    message: error.response.data.message, </span><br><span class="line">                    duration: <span class="number">1500</span>, </span><br><span class="line">                    forbidClick: <span class="literal">true</span> </span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error.response);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>要注意的是，上面的Toast()方法，是我引入的vant库中的toast轻提示组件，你根据你的ui库，对应使用你的一个提示组件。</p>
+<h3 id="封装get方法和post方法"><a href="#封装get方法和post方法" class="headerlink" title="封装get方法和post方法"></a>封装get方法和post方法</h3><blockquote>
+<p>我们常用的ajax请求方法有get、post、put等方法，相信小伙伴都不会陌生。<br><br>axios对应的也有很多类似的方法，不清楚的可以看下文档。<br><br>但是为了简化我们的代码，我们还是要对其进行一个简单的封装。</p>
+</blockquote>
+<h4 id="get-方法"><a href="#get-方法" class="headerlink" title="get 方法"></a>get 方法</h4><p>get方法函数有两个参数：</p>
+<ol>
+<li>第一个参数表示我们要请求的url地址</li>
+<li>第二个参数是我们要携带的请求参数。</li>
+</ol>
+<p>get函数返回一个promise对象：</p>
+<ul>
+<li>当axios其请求成功时resolve服务器返回值。</li>
+<li>请求失败时reject错误值，最后通过export抛出get函数。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * get 请求方法</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; url      [请求的url地址]</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; params   [请求时携带的参数]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">url, params</span>)</span>&#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        axios.get(baseURL + url, &#123;</span><br><span class="line">            params: params</span><br><span class="line">        &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(res.data);</span><br><span class="line">        &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">            reject(err.data)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="post-方法"><a href="#post-方法" class="headerlink" title="post 方法"></a>post 方法</h4><p>post方法函数有两个参数：</p>
+<ol>
+<li>第一个参数表示我们要请求的url地址</li>
+<li>第二个参数是我们要携带的请求参数。</li>
+</ol>
+<p>post函数返回一个promise对象：</p>
+<ul>
+<li>当axios其请求成功时resolve服务器返回值。</li>
+<li>请求失败时reject错误值，最后通过export抛出get函数。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/** </span><br><span class="line"> * post方法，对应post请求 </span><br><span class="line"> * @param &#123;String&#125; url [请求的url地址] </span><br><span class="line"> * @param &#123;Object&#125; params [请求时携带的参数] </span><br><span class="line"> */</span><br><span class="line">export function post(url, params) &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">        axios.post(url, &#123;</span><br><span class="line">            params: params</span><br><span class="line">        &#125;).then(res =&gt; &#123;</span><br><span class="line">            resolve(res.data);</span><br><span class="line">        &#125;).catch(err =&gt; &#123;</span><br><span class="line">            reject(err.data)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="api-统一管理接口"><a href="#api-统一管理接口" class="headerlink" title="api 统一管理接口"></a>api 统一管理接口</h2><blockquote>
+<p>api 接口管理的一个好处就是，可以把api统一集中起来，如果后期需要修改接口，就直接在api.js中找到对应的修改就好了，而不用去每一个页面查找接口然后再修改会很麻烦。</p>
+<p>关键是，万一修改的量比较大，就规格gg了，还有就是如果直接在我们的业务代码修改接口，一不小心还容易动到我们的业务代码造成不必要的麻烦。</p>
+</blockquote>
+<p>首先在 <code>api.js</code> 中引入封装的 <code>get</code> 和 <code>post</code> 方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/* api.js */</span><br><span class="line">import &#123; get, post &#125; from &apos;./http&apos;</span><br></pre></td></tr></table></figure>
+<p>现在，我们有这样一个接口，是一个 <code>post</code> 请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.baiodu.com/api/user/login</span><br></pre></td></tr></table></figure></p>
+<p>我们在 <code>api.js</code> 中这样封装：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.0 定义了一个 user 对象，里面创建了一个 login 方法</span></span><br><span class="line"><span class="comment">// 2.0 user.login 方法接收一个参数 data，data为请求的参数对象</span></span><br><span class="line"><span class="comment">// 3.0 user.login 方法调用时会直接调用并返回 post 方法</span></span><br><span class="line"><span class="comment">// 4.0 post 方法的第一个参数是我们的接口url地址，第二个参数是login接口的请求参数(由调用user.login时传入)</span></span><br><span class="line"><span class="comment">// 5.0 导出 user 对象</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> user = &#123;</span><br><span class="line">    login: <span class="function"><span class="params">data</span> =&gt;</span> post(<span class="string">'/api/user/login'</span>, data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后在页面中可以这样调用封闭的 <code>api</code> 接口：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123;user&#125; <span class="keyword">from</span> <span class="string">'@/config/api.js'</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">    created() &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">this</span>.login;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">        login() &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 调用 api 接口</span></span></span><br><span class="line"><span class="undefined">            user.login(&#123;</span></span><br><span class="line"><span class="javascript">                name: <span class="string">'admin'</span>,</span></span><br><span class="line"><span class="javascript">                pawd: <span class="string">'123456'</span>,</span></span><br><span class="line"><span class="javascript">            &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 获取数据成功后的其他操作</span></span></span><br><span class="line"><span class="javascript">            &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 获取错误的其他操作</span></span></span><br><span class="line"><span class="undefined">            &#125;)</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其他的api接口，就在pai.js中继续往下面扩展就可以了。<br><br>友情提示，为每个接口写好注释哦！！！</p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p>最后把完成的 axios 封装代码奉上。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**axios封装</span></span><br><span class="line"><span class="comment"> * 请求拦截、相应拦截、错误统一处理</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 引入 axios</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>; </span><br><span class="line"><span class="comment">// 引入 vuex</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'@/store'</span>;</span><br><span class="line"><span class="comment">// vant的toast提示框组件(根据自己的ui组件更改)。</span></span><br><span class="line"><span class="keyword">import</span> &#123; Toast &#125; <span class="keyword">from</span> <span class="string">'vant'</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 设置环境切换</span></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV == <span class="string">'development'</span>) &#123; </span><br><span class="line">    axios.defaults.baseURL = <span class="string">'https://www.development.com'</span>;&#125; </span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (process.env.NODE_ENV == <span class="string">'test'</span>) &#123; </span><br><span class="line">    axios.defaults.baseURL = <span class="string">'https://www.test.com'</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (process.env.NODE_ENV == <span class="string">'production'</span>) &#123; </span><br><span class="line">    axios.defaults.baseURL = <span class="string">'https://www.production.com'</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 设置默认的请求超时时间</span></span><br><span class="line">axios.defaults.timeout = <span class="number">10000</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 配置请求头</span></span><br><span class="line">axios.defaults.headers.post[<span class="string">'Content-Type'</span>] = <span class="string">'application/json;charset=UTF-8'</span>;</span><br><span class="line">axios.defaults.headers.appId = store.state.appId;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 请求拦截器</span></span><br><span class="line">axios.interceptors.request.use(</span><br><span class="line">    config =&gt; &#123;</span><br><span class="line">        <span class="comment">// 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，</span></span><br><span class="line">        <span class="keyword">const</span> token = store.state.Token;</span><br><span class="line">        token &amp;&amp; (config.headers.Authorization = token);</span><br><span class="line">        <span class="keyword">return</span> config;</span><br><span class="line">    &#125;, </span><br><span class="line">    error =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.error(error);</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 响应拦截器</span></span><br><span class="line">axios.interceptors.response.use(</span><br><span class="line">    response =&gt; &#123;</span><br><span class="line">        <span class="comment">// 如果返回的状态码为200，说明请求成功，可以正常拿到数据，否则抛出错误</span></span><br><span class="line">        <span class="keyword">if</span> (response.status === <span class="number">200</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(response);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, </span><br><span class="line">    error =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (error.response.status) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (error.response.status) &#123;</span><br><span class="line">                <span class="comment">// 跟后台开发人员协商好统一的错误状态码，对相应状态码做相对的错误处理</span></span><br><span class="line">                <span class="keyword">case</span> <span class="number">401</span>: ...省略代码... break;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">403</span>: ...省略代码... break;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">404</span>: ...省略代码... break;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">500</span>: ...省略代码... break;</span><br><span class="line">                <span class="comment">// 其他错误，直接抛出错误提示</span></span><br><span class="line">                <span class="keyword">default</span>: Toast(&#123; </span><br><span class="line">                    message: error.response.data.message, </span><br><span class="line">                    duration: <span class="number">1500</span>, </span><br><span class="line">                    forbidClick: <span class="literal">true</span> </span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error.response);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * get 请求方法</span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; url      [请求的url地址]</span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; params   [请求时携带的参数]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">url, params</span>)</span>&#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        axios.get(baseURL + url, &#123;</span><br><span class="line">            params: params</span><br><span class="line">        &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(res.data);</span><br><span class="line">        &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">            reject(err.data)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * post方法，对应post请求 </span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; url [请求的url地址] </span></span><br><span class="line"><span class="comment"> * @param &#123;Object&#125; params [请求时携带的参数] </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">post</span>(<span class="params">url, params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        axios.post(url, params).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(res.data);</span><br><span class="line">        &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">            reject(err.data)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          
+            <a href="/tags/axios/" rel="tag"><i class="fa fa-tag"></i> axios</a>
+          
+            <a href="/tags/封装/" rel="tag"><i class="fa fa-tag"></i> 封装</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/27/vue-cli3 配置详解/" rel="next" title="vue-cli3 配置详解">
+                <i class="fa fa-chevron-left"></i> vue-cli3 配置详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="itzhile">
+            
+              <p class="site-author-name" itemprop="name">itzhile</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://it-zhile.github.io/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-axios与api的封装"><span class="nav-number">1.</span> <span class="nav-text">vue - axios与api的封装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#axios-的封装"><span class="nav-number">1.1.</span> <span class="nav-text">axios 的封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-axios"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装 axios</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入封装-axios"><span class="nav-number">1.1.2.</span> <span class="nav-text">引入封装 axios</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置环境切换-baseURL"><span class="nav-number">1.1.3.</span> <span class="nav-text">设置环境切换 baseURL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置请求超时"><span class="nav-number">1.1.4.</span> <span class="nav-text">设置请求超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置请求头"><span class="nav-number">1.1.5.</span> <span class="nav-text">设置请求头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置请求拦截"><span class="nav-number">1.1.6.</span> <span class="nav-text">设置请求拦截</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置响应的拦截"><span class="nav-number">1.1.7.</span> <span class="nav-text">设置响应的拦截</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装get方法和post方法"><span class="nav-number">1.1.8.</span> <span class="nav-text">封装get方法和post方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get-方法"><span class="nav-number">1.1.8.1.</span> <span class="nav-text">get 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#post-方法"><span class="nav-number">1.1.8.2.</span> <span class="nav-text">post 方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#api-统一管理接口"><span class="nav-number">1.2.</span> <span class="nav-text">api 统一管理接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码"><span class="nav-number">1.3.</span> <span class="nav-text">源码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">itzhile</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
