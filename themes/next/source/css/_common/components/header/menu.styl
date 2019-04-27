@@ -1,0 +1,43 @@
+// Menu
+// --------------------------------------------------
+.menu {
+  margin-top: 20px;
+  padding-left: 0;
+  text-align: center;
+  width: 500px;
+  margin: 0 auto;
+  padding: 10px;
+  background: rgba(255, 255, 255, .5);
+}
+
+.menu .menu-item {
+  display: inline-block;
+  margin: 0 20px;
+  list-style: none;
+
+  @media screen and (max-width: 767px) {
+    margin-top: 10px;
+  }
+
+  a {
+    display: block;
+    font-size: 16px;
+    // line-height: inherit;
+    line-height: 20px;
+    border-bottom: 1px solid $menu-link-border;
+    transition-property: border-color;
+    the-transition();
+
+    &:hover { border-bottom-color: $menu-link-hover-border; }
+  }
+
+  .fa { 
+    margin-right: -6px !important; 
+    font-size: 20px;
+  }
+  .fa-home {
+    font-size: 22px;
+  }
+}
+
+.use-motion .menu-item { opacity: 0; }
