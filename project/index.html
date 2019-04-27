@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="项目展示              h1 {             color: hotpink;         }            项目展示111">
+<meta name="description" content="项目展示              .title {             text-align: center;         }          .list {             list-style: none;             padding: 0px !important;         }          .item">
 <meta property="og:type" content="website">
 <meta property="og:title" content="知 乐">
 <meta property="og:url" content="http://yoursite.com/project/index.html">
 <meta property="og:site_name" content="知 乐">
-<meta property="og:description" content="项目展示              h1 {             color: hotpink;         }            项目展示111">
+<meta property="og:description" content="项目展示              .title {             text-align: center;         }          .list {             list-style: none;             padding: 0px !important;         }          .item">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-27T08:49:34.915Z">
+<meta property="og:image" content="http://yoursite.com/assets/img/project/zhile-ui.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/project/lol.png">
+<meta property="og:image" content="http://yoursite.com/assets/img/project/360.png">
+<meta property="og:updated_time" content="2019-04-27T11:25:16.379Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知 乐">
-<meta name="twitter:description" content="项目展示              h1 {             color: hotpink;         }            项目展示111">
+<meta name="twitter:description" content="项目展示              .title {             text-align: center;         }          .list {             list-style: none;             padding: 0px !important;         }          .item">
+<meta name="twitter:image" content="http://yoursite.com/assets/img/project/zhile-ui.png">
 
 
 
@@ -279,20 +283,167 @@
         
           <!DOCTYPE html>
 <html lang="en">
+
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>项目展示</title>
     <style>
-        h1 {
-            color: hotpink;
+        .title {
+            text-align: center;
+        }
+
+        .list {
+            list-style: none;
+            padding: 0px !important;
+        }
+
+        .item {
+            list-style: none;
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 0px 10px #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .item:last-child {
+            margin-bottom: 0px;
+        }
+        .item:hover,
+        .item:focus {
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgb(148, 148, 148);
+        }
+
+        a {
+            border: none;
+            flex-shrink: 0;
+        }
+
+        .item-img {
+            width: 400px;
+            height: 260px;
+            border-radius: 4px;
+            margin-bottom: 0px !important;
+        }
+
+
+
+        .item-content {
+            padding: 0px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex: 1;
+        }
+
+
+        .item-title {
+            margin: 10px 0px;
+            padding: 0px;
+        }
+
+        .item-note {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .btn-box {
+            padding-bottom: 30px;
+        }
+
+        .btn-box > a.button {
+            cursor: pointer;
+            padding: 10px 30px;
+            color: #fff;
+            vertical-align: -webkit-baseline-middle;
+            border-radius: 50px;
+            background-image: linear-gradient(90deg, #00aeff 0%, #3369e7 100%);
+        }
+
+        .button:hover {
+            color: #fff;
+            box-shadow: 0 0px 4px 0 rgba(51, 105, 231, 0.8);
+        }
+        .btn-line {
+            color: #316de9;
+            border: 1px solid #2f6ee9;
+            background-color: #fff;
+            box-shadow: none;
+            cursor: pointer;
+            padding: 10px 30px;
+            border-radius: 50px;
+            vertical-align: -webkit-baseline-middle;
+        }
+        .btn-line:hover {
+            color: #316de9;
+            border: 1px solid #2f6ee9;
+            background-color: rgba(101, 146, 238, 0.1);
+        }
+        .button,.btn-line {
+            margin-right: 20px;
         }
     </style>
 </head>
+
 <body>
-    <h1>项目展示111</h1>
+    <h1 class="title">项目展示</h1>
+    <ul class="list">
+        <li class="item">
+            <img class="item-img" src="../assets/img/project/zhile-ui.png" alt="zhile-ui">
+            <div class="item-content">
+                <div class="item-text">
+                    <h3 class="item-title">zhile-ui 基于 vue 开发的 ui 库</h3>
+                    <p class="item-note">基于vue开发的一套PC端UI组件库</p>
+                </div>
+                <div class="btn-box">
+                    <a class="button" href="https://it-zhile.github.io/zhile-ui/#/" target="_blank" rel="noopener">预览项目</a>
+                    <a class="btn-line" href="https://github.com/it-zhile/zhile-ui" target="_blank" rel="noopener">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+
+        <li class="item">
+            <img class="item-img" src="../assets/img/project/lol.png" alt="zhile-ui">
+            <div class="item-content">
+                <div class="item-text">
+                    <h3 class="item-title">LOL英雄联盟官网</h3>
+                    <p class="item-note">防英雄联盟官网-静态页面</p>
+                </div>
+                <div class="btn-box">
+                    <a class="button" href="https://it-zhile.github.io/lol/" target="_blank" rel="noopener">预览项目</a>
+                    <a class="btn-line" href="https://github.com/it-zhile/lol" target="_blank" rel="noopener">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+
+        <li class="item">
+            <img class="item-img" src="../assets/img/project/360.png" alt="zhile-ui">
+            <div class="item-content">
+                <div class="item-text">
+                    <h3 class="item-title">360浏览器宣传页面</h3>
+                    <p class="item-note">360浏览器宣传页面-静态页面</p>
+                </div>
+                <div class="btn-box">
+                    <a class="button" href="https://it-zhile.github.io/360/" target="_blank" rel="noopener">预览项目</a>
+                    <a class="btn-line" href="https://github.com/it-zhile/360" target="_blank" rel="noopener">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
 </body>
+
 </html>
         
       </div>
@@ -429,7 +580,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">项目展示111</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">项目展示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.1.</span> <span class="nav-text">zhile-ui 基于 vue 开发的 ui 库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.2.</span> <span class="nav-text">LOL英雄联盟官网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.3.</span> <span class="nav-text">360浏览器宣传页面</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
